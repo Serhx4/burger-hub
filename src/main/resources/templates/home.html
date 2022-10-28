@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/parts/base :: head(~{::title})">
+    <title>Burger Hub</title>
+</head>
+<body>
+
+<th:block th:replace="/parts/navbar :: navbar" />
+<br/>
+
+<div class="container">
+
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            <div class="col" th:each="burger : ${burgers}">
+                <div class="card h-100">
+                    <a th:href="@{/menu/{id}(id = ${burger.burgerId})}" style="text-decoration: none; color: darkorange">
+                        <img th:src="${burger.imageUri}" class="card-img-top" th:alt="${burger.name}">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${burger.name}">Burger</h5>
+                            <h6 class="card-subtitle text-muted" th:text="${'$' + burger.price}">Price</h6>
+                        </div>
+                    </a>
+                    <div class="card-body">
+                        <p class="card-text" th:text="${burger.description}"></p>
+                    </div>
+                        <form th:action="@{/cart}" class="btn-group" method="post">
+                            <input type="hidden" name="burgerId" th:value="${burger.burgerId}" />
+                            <button type="submit" class="btn btn-warning">Add to Cart</button>
+                            <button type="button" class="btn btn-warning dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="visually-hidden">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" th:href="@{/burger/update_burger/{id}(id = ${burger.burgerId})}">
+                                    Add ingredients
+                                </a></li>
+                            </ul>
+                        </form>
+
+                </div>
+            </div>
+        </div>
+
+</div>
+
+    <th:block th:replace="/parts/footer :: footer" />
+
+    <th:block th:replace="/parts/base :: boot_script" />
+</body>
+</html>

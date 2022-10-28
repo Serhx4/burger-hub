@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/parts/base :: head(~{::title})">
+    <title>Craft Burger</title>
+</head>
+<body>
+<th:block th:replace="/parts/navbar :: navbar" />
+
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2>Create your own burger!</h2>
+        <p class="lead">You are free to choose any ingredient combo. Your burger design will be saved at
+            <a th:href="@{/burger/my_burgers}" style="text-decoration: none; color: darkorange">My Burgers</a> tab</p>
+    </div>
+
+    <form method="post" th:object="${burger}" class="row g-3" th:action="@{/burger/add_burger}">
+
+        <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('name')}"
+             th:errors="*{name}">
+            Security code required
+        </div>
+        <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('ingredients')}"
+             th:errors="*{ingredients}">
+            Security code required
+        </div>
+
+        <div class="col-12">
+            <h5>Burger name:</h5>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10">
+                <!--<th:block th:if="${burger.user != null}">-->
+                    <!--<input type="hidden" th:field="*{burgerId}" th:value="*{burgerId}" />-->
+                <!--</th:block>-->
+                <input type="hidden" th:field="*{imageUri}" th:value="${burger.imageUri}"/>
+                <input class="form-control" placeholder="Burger name" style="font-size: 1.375em;"
+                       th:field="${burger.name}" th:value="${burger.name}" id="burgerName"/>
+            </div>
+            <div class="col-md-2 d-grid gap-2 mx-auto">
+                <button type="submit" class="btn btn-warning btn-lg">Save Burger</button>
+            </div>
+        </div>
+        <!--<div class="col-md-6">-->
+        <!--</div>-->
+
+        <div class="col-md-4" id="breads">
+            <h5>Choose your bread:</h5>
+            <div class="list-group w-auto" th:each="ingredient : ${bread}">
+                <label class="list-group-item d-flex gap-3">
+                    <input class="form-check-input flex-shrink-0 text-bg-warning" type="radio" style="font-size: 1.375em;"
+                           th:field="*{ingredients}" th:value="${ingredient.id}" id="breadRadio" >
+                    <img th:src="@{'~/' + ${ingredient.imageUri}}"
+                         th:alt="${ingredient.name}"
+                         class="img-fluid"
+                         style="width: 10%; height: 10%">
+                    <label class="form-check-label" for="breadRadio" th:text="${ingredient.name}">
+                        Ingredient
+                    </label>
+                </label>
+            </div>
+        </div>
+
+        <div class="col-md-4" id="cheese">
+            <h5>Pick your cheese:</h5>
+            <div class="list-group w-auto" th:each="ingredient : ${cheese}">
+                <label class="list-group-item d-flex gap-3">
+                    <input class="form-check-input flex-shrink-0 text-bg-warning" type="checkbox" style="font-size: 1.375em;"
+                           th:field="*{ingredients}" th:value="${ingredient.id}" id="cheeseCheck">
+                    <img th:src="@{'~/' + ${ingredient.imageUri}}"
+                         th:alt="${ingredient.name}"
+                         class="img"
+                         style="width: 10%; height: 10%">
+                    <label class="form-check-label" for="cheeseCheck" th:text="${ingredient.name}">
+                        Ingredient
+                    </label>
+                </label>
+            </div>
+        </div>
+
+        <div class="col-md-4" id="toppings">
+            <h5>Select additional toppings:</h5>
+            <div class="list-group w-auto" th:each="ingredient : ${topping}">
+                <label class="list-group-item d-flex gap-3">
+                    <input class="form-check-input flex-shrink-0 text-bg-warning" type="checkbox" style="font-size: 1.375em;"
+                           th:field="*{ingredients}" th:value="${ingredient.id}" id="toppingCheck">
+                    <img th:src="@{'~/' + ${ingredient.imageUri}}"
+                         th:alt="${ingredient.name}"
+                         class="img"
+                         style="width: 10%; height: 10%">
+                    <label class="form-check-label" for="toppingCheck" th:text="${ingredient.name}">
+                        Ingredient
+                    </label>
+                </label>
+            </div>
+        </div>
+
+        <div class="col-md-4" id="proteins">
+            <h5>Pick your protein:</h5>
+            <div th:each="ingredient : ${protein}">
+                <div class="list-group w-auto">
+                    <label class="list-group-item d-flex gap-3">
+                        <input class="form-check-input flex-shrink-0 text-bg-warning" type="checkbox" style="font-size: 1.375em;"
+                               th:field="*{ingredients}" th:value="${ingredient.id}" id="proteinRadio">
+                        <img th:src="@{'~/' + ${ingredient.imageUri}}"
+                             th:alt="${ingredient.name}"
+                             class="img"
+                             style="width: 10%; height: 10%">
+                        <label class="form-check-label" for="proteinRadio" th:text="${ingredient.name}">
+                            Ingredient
+                        </label>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4" id="veggies">
+            <h5>Choose your veggies:</h5>
+            <div class="list-group w-auto" th:each="ingredient : ${veggies}">
+                <label class="list-group-item d-flex gap-3">
+                    <input class="form-check-input flex-shrink-0 text-bg-warning" type="checkbox" style="font-size: 1.375em;"
+                           th:field="*{ingredients}" th:value="${ingredient.id}" id="veggiesCheck">
+                    <img th:src="@{'~/' + ${ingredient.imageUri}}"
+                         th:alt="${ingredient.name}"
+                         class="img"
+                         style="width: 10%; height: 10%">
+                    <label class="form-check-label" for="veggiesCheck" th:text="${ingredient.name}">
+                        Ingredient
+                    </label>
+                </label>
+            </div>
+        </div>
+
+        <div class="col-md-4" id="sauce">
+            <h5>Pick your sauces:</h5>
+            <div class="list-group w-auto" th:each="ingredient : ${sauce}">
+                <label class="list-group-item d-flex gap-3">
+                    <input class="form-check-input flex-shrink-0 text-bg-warning" type="checkbox" style="font-size: 1.375em;"
+                           th:field="*{ingredients}" th:value="${ingredient.id}" id="sauceCheck">
+                    <img th:src="@{'~/' + ${ingredient.imageUri}}"
+                         th:alt="${ingredient.name}"
+                         class="img"
+                         style="width: 10%; height: 10%">
+                    <label class="form-check-label" for="sauceCheck" th:text="${ingredient.name}">
+                        Ingredient
+                    </label>
+                </label>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+<th:block th:replace="/parts/footer :: footer" />
+
+<th:block th:replace="/parts/base :: boot_script" />
+</body>
+</html>

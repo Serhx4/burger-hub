@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/parts/base :: head(~{::title})">
+    <title>Burger Hub</title>
+</head>
+<body>
+
+<th:block th:replace="/parts/navbar :: navbar" />
+
+<div class="container mb-5 mt-5">
+
+    <div class="row g-0">
+
+        <div class="col-md-6 pe-1">
+            <img th:src="'../' + ${burger.imageUri}" class="img-fluid rounded" th:alt="${burger.name}">
+        </div>
+        <div class="col-md-6 ps-5">
+            <div class="card-body">
+                <h2 class="card-title" th:text="${burger.name}">Burger name</h2>
+                <h3 class="card-subtitle text-muted" th:text="${'$' + burger.price}">Price</h3>
+                <br/>
+                <h5 class="text-muted">Ingredients:</h5>
+
+                <div class="row row-cols-1 row-cols-md-2 g-1">
+                    <div class="col" th:each="ingredient : ${burger.ingredients}">
+                        <div class="row g-1">
+                            <div class="col-md-3">
+                                <img th:src="@{'../' + ${ingredient.imageUri}}" class="img-fluid rounded-start"
+                                     th:alt="${ingredient.name}">
+                            </div>
+                            <div class="col-md-9 hstack">
+                                <div class="card-body">
+                                    <h6 class="card-title text-muted" th:text="${ingredient.name}">Ingredient</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div>
+                    <form th:action="@{/cart}" method="post">
+                        <input type="hidden" name="burgerId" th:value="${burger.burgerId}" />
+                        <div class="btn-group">
+                            <button type="submit" class="w-100 btn btn-warning btn-lg">Add to Cart</button>
+                            <button type="button" class="btn btn-warning dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="visually-hidden">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" th:href="@{/burger/update_burger/{id}(id = ${burger.burgerId})}">
+                                    Add ingredients
+                                </a></li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="/parts/footer :: footer" />
+
+<th:block th:replace="/parts/base :: boot_script" />
+
+</body>
+</html>

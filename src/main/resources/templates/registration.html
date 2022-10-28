@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/parts/base :: head(~{::title})">
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body class="text-center">
+
+<th:block th:replace="/parts/navbar :: navbar" />
+
+<div class="container">
+
+</div>
+
+<div class="vstack gap-2 col-md-4 mx-auto mt-5">
+    <!--<div class="vstack gap-2 col-12 mx-auto">-->
+    <form class="" method="post" th:action="@{/register}" id="registerForm" th:object="${registrationForm}">
+
+        <img class="mb-4" src="../image/logo/burger.png" alt="" width="72" height="72"/>
+        <h1 class="h3 mb-3 fw-normal">Register</h1>
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="Username"
+                   name="username" th:field="*{username}" th:value="*{username}">
+            <label for="floatingInput">Username</label>
+            <div class="text-danger" role="alert" th:if="${#fields.hasErrors('username')}"
+                 th:errors="*{username}">
+                Security code required
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingEmail" placeholder="Email"
+                   name="email" th:field="*{email}" th:value="*{email}">
+            <label for="floatingEmail">Email</label>
+            <div class="text-danger" role="alert" th:if="${#fields.hasErrors('email')}"
+                 th:errors="*{email}">
+                Security code required
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                   name="password" th:field="*{password}">
+            <label for="floatingPassword">Password</label>
+            <div class="text-danger" role="alert" th:if="${#fields.hasErrors('password')}"
+                 th:errors="*{password}">
+                Security code required
+            </div>
+        </div>
+
+        <!--<div class="form-floating mb-3">-->
+            <!--<input type="password" class="form-control" id="repeatPassword" placeholder="Repeat Password"-->
+                   <!--name="repeatPassword">-->
+            <!--<label for="repeatPassword">Repeat Password</label>-->
+        <!--</div>-->
+
+        <button class="w-100 btn btn-lg btn-warning mb-3" type="submit">Register</button>
+
+        <a th:href="@{/login}" class="text-warning">Already have an account?</a>
+
+        <p class="mt-5 mb-3 text-muted">&copy; 2022 Burger Hub, Inc</p>
+    </form>
+
+</div>
+
+<th:block th:replace="/parts/base :: boot_script" />
+
+</body>
+</html>

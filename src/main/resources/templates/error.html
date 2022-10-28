@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/parts/base :: head(~{::title})">
+    <title>Error Page</title>
+</head>
+<body>
+
+<th:block th:replace="/parts/navbar :: navbar" />
+
+<br/>
+
+<div class="container">
+
+    <div class="row">
+        <h2 class="text-muted mb-3">[[${error}]]</h2>
+        <a type="button" class="btn btn-warning col-md-4" href="/">Back to Hub</a>
+
+    </div>
+
+</div>
+
+
+<th:block th:replace="/parts/footer :: footer" />
+
+<th:block th:replace="/parts/base :: boot_script" />
+
+</body>
+</html>

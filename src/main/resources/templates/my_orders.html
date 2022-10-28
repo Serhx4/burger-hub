@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/parts/base :: head(~{::title})">
+    <title>My Orders</title>
+</head>
+<body>
+
+<th:block th:replace="/parts/navbar :: navbar" />
+
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>Orders history</h2>
+        <!--<p class="lead" th:text="'Personal designs by @' + ${user.username}">Personal burger designs</p>-->
+    </div>
+
+    <div class="row">
+
+        <table class="table table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th scope="col">Order #</th>
+                <th scope="col">Date</th>
+                <th scope="col">Ship to</th>
+                <th scope="col">Status</th>
+                <th scope="col">Total</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody th:each="order : ${orders}">
+            <tr data-bs-toggle="collapse" th:data-bs-target="'#collapseOrder' + ${order.id}"
+                aria-expanded="false" th:aria-controls="'collapseOrder' + ${order.id}">
+                <th scope="row" th:text="${order.id}">#</th>
+                <td th:text="${order.placedAt}">Date</td>
+                <td th:text="${order.shippingInfo.firstName} + ' ' + ${order.shippingInfo.lastName}">Full Name</td>
+                <td><span class="badge rounded-pill text-bg-warning">Processing</span></td>
+                <td th:text="'$' + ${order.total}">Total</td>
+                <td><i class="bi bi-chevron-compact-down"></i></td>
+            </tr>
+            <tr>
+                <td data-th-colspan="12" class="hiddenRow">
+                    <div class="collapse" th:id="'collapseOrder' + ${order.id}">
+                        <div class="card card-body">
+
+                            <div class="row row-cols-1 row-cols-md-5 g-4">
+
+                                <div class="col" th:each="burger : ${order.burgers.entrySet()}">
+                                    <div class="card mb-3 h-100">
+
+                                        <img th:src="'../' + ${burger.getKey().imageUri}" class="card-img"
+                                             th:alt="${burger.getKey().name}">
+
+                                        <div class="card-header h-50">
+                                            <h5 class="card-title" th:text="${burger.getKey().name}">Burger</h5>
+                                            <h6 class="card-subtitle mb-2 text-muted"
+                                                th:text="'$' + ${burger.getKey().price} + ' x ' + ${burger.getValue()}">Price</h6>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<th:block th:replace="/parts/footer :: footer" />
+
+<th:block th:replace="/parts/base :: boot_script" />
+
+</body>
+</html>

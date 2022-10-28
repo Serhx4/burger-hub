@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/parts/base :: head(~{::title})">
+    <title>Your Cart</title>
+</head>
+<body>
+
+<th:block th:replace="/parts/navbar :: navbar" />
+
+<div class="container">
+    <br/>
+
+    <div class="row g-5">
+        <div class="col-md-5 col-lg-4 order-md-last">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-warning">Subtotal</span>
+                <span class="badge bg-warning rounded-pill" th:text="${count}">0</span>
+            </h4>
+            <ul class="list-group mb-3">
+
+                <li class="list-group-item d-flex justify-content-between lh-sm" th:each="burger : ${burgers.entrySet()}">
+                    <div>
+                        <h6 class="my-0" th:text="${burger.getKey().name}">Burger name</h6>
+                        <small class="text-muted"
+                               th:text="'$' + ${burger.getKey().price} + ' x ' + ${burger.getValue()}">Brief description</small>
+                    </div>
+                    <span class="text-muted"
+                          th:text="'$' + ${burger.getKey().price.multiply(burger.getValue())}">Price</span>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between bg-light" th:if="${discount > 0}">
+                    <div class="text-success">
+                        <h6 class="my-0">Promo code</h6>
+                        <small th:text="${promo.code}">EXAMPLECODE</small>
+                    </div>
+                    <span class="text-success" th:text="'-$' + ${discount}">−$5</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Total (USD)</span>
+                    <strong th:text="'$' + ${total}">0</strong>
+                </li>
+            </ul>
+
+            <form class="card p-2 mb-3" th:if="${count > 0}" method="post" th:action="@{/cart/promo}">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Promo code" name="promoCode">
+                    <button type="submit" class="btn btn-secondary">Redeem</button>
+                </div>
+            </form>
+
+            <a th:href="@{/order}" class="w-100 btn btn-warning btn-lg p-2" type="submit"
+            th:if="${count > 0}">Checkout</a>
+
+        </div>
+
+        <div class="col-md-7 col-lg-8">
+
+
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-secondary"
+                      th:text="(${total} == 0) ? 'Your cart is currently empty' : 'Shopping Cart'">Shopping Cart</span>
+            </h4>
+
+            <a type="button" class="btn btn-warning col-md-5" href="/" th:if="${total} == 0">Back to Hub</a>
+
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                <div class="col" th:each="burger : ${burgers.entrySet()}">
+                    <div class="card mb-3 h-100">
+
+                        <img th:src="${burger.getKey().imageUri}" class="card-img" th:alt="${burger.getKey().name}">
+
+                        <div class="card-header h-50">
+                            <h5 class="card-title" th:text="${burger.getKey().name}">Burger</h5>
+                            <!--<h6 class="card-subtitle mb-2 text-muted" th:text="${burger.getValue()} + ' x $' + ${burger.getKey().price}">-->
+                            <h6 class="card-subtitle mb-2 text-muted"
+                                th:text="'$' + ${burger.getKey().price} + ' x ' + ${burger.getValue()}">Price</h6>
+                            <!--<p class="card-text" th:text="${burger.description}"></p>-->
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="vstack mx-auto">
+                                <div class="btn-group" role="group">
+                                    <form method="post" th:action="@{/cart/increment}">
+                                        <input type="hidden" name="burgerId" th:value="${burger.getKey.burgerId}"/>
+                                        <button type="submit" class="btn btn-warning">+1</button>
+                                    </form>
+                                    <form method="post" th:action="@{/cart/decrement}">
+                                        <input type="hidden" name="burgerId" th:value="${burger.getKey.burgerId}"/>
+                                        <button type="submit" class="btn btn-danger">-1</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    </div>
+
+    <th:block th:replace="/parts/footer :: footer" />
+
+    <th:block th:replace="/parts/base :: boot_script" />
+</body>
+</html>

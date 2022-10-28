@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/parts/base :: head(~{::title})">
+    <title>Promo</title>
+</head>
+<body>
+
+<th:block th:replace="/parts/navbar :: navbar" />
+
+<br/>
+
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2>Let's test your luck :)</h2>
+        <p class="lead">Find and copy promo code by clicking the button. Check your luck in the
+            <a th:href="@{/cart}" style="text-decoration: none; color: darkorange">Shopping Cart</a>.</p>
+    </div>
+
+    <div class="container">
+
+        <div class="d-flex justify-content-center row ">
+        <!--<div class="row row-cols-1 row-cols-md-1 g-4">-->
+            <div class="col-md-6 m-2" th:each="code : ${promos}">
+            <!--<div class="col-md-6 m-2">-->
+                <div class="card card-body border-warning rounded">
+                    <div class="row no-gutters">
+                        <div class="col-md-3">
+                            <div class="d-flex flex-column align-items-center">
+                                <img th:src="'..' + @{/image/favicon.ico}">
+                                <span class="d-block">Burger Hub</span>
+                                <span class="text-black-50">Promo</span>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div>
+                                <div class="d-flex flex-row justify-content-end off">
+                                    <h1>?%</h1>
+                                    <span>OFF</span>
+                                </div>
+                                <div class="d-flex flex-row justify-content-between off px-3 p-2">
+                                    <span>Code:</span>
+                                    <!--<span class="border border-warning px-3 rounded code" th:text="${code.code}">-->
+                                    <!--Code</span>-->
+                                    <input type="text" class="border border-warning px-3 rounded code" th:id="${code.id}"
+                                           th:value="${code.code}" disabled/>
+                                    <button type="button" class="btn btn-warning"
+                                            th:onclick="'javascript:copyPromo(\'' + ${code.id} + '\');'">
+                                        <i class="bi bi-clipboard"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function copyPromo(id) {
+
+            var copyText = document.getElementById(id);
+
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+
+            navigator.clipboard.writeText(copyText.value);
+
+            alert("Copied the promo: " + copyText.value);
+        }
+    </script>
+
+</div>
+
+<th:block th:replace="/parts/footer :: footer" />
+
+<th:block th:replace="/parts/base :: boot_script" />
+
+</body>
+</html>
