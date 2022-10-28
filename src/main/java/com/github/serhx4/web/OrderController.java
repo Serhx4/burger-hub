@@ -17,7 +17,6 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/order")
-//@SessionAttributes("count")
 public class OrderController {
 
     private CartService cartService;

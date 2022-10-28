@@ -122,7 +122,7 @@ public class DevelopmentConfig {
                 add(yellowMustard);
                 add(tomatoKetchup);
             }});
-//
+
             Burger cheeseburger = new Burger();
             cheeseburger.setName("Cheeseburger");
             cheeseburger.setImageUri("image/burger/cheeseburger.png");
@@ -191,7 +191,7 @@ public class DevelopmentConfig {
                 add(crispLettuce);
                 add(bbqSauce);
             }});
-//
+
             burgerRepo.save(hamburger);
             burgerRepo.save(cheeseburger);
             burgerRepo.save(baconCheeseburger);

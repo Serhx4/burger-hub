@@ -11,8 +11,6 @@ import javax.validation.constraints.Pattern;
 
 @Data
 @Entity
-//@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
-//@RequiredArgsConstructor
 public class ShippingInfo {
 
     @Id
