@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 </head>
 <body>
@@ -34,14 +35,26 @@
 
 
                     <ul class="nav nav-pills me-4">
-                        <li><a th:href="@{/order/my_orders}" class="nav-link px-2 text-white">
-                            <i class="bi bi-bag-check"></i> My Orders</a></li>
-                        <li><a th:href="@{/cart}" class="nav-link px-2 text-white">
-                            <i class="bi bi-cart3"></i> Cart
-                            <span class="badge bg-warning rounded-pill" th:if="${@cartServiceImpl.getCount() > 0}">
-                                [[${@cartServiceImpl.getCount()}]]
-                            </span></a></li>
-                        <!--<li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>-->
+                        <li>
+                            <a th:href="@{/order/my_orders}" class="nav-link px-2 text-white">
+                                <i class="bi bi-bag-check"></i> My Orders
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/cart}" class="nav-link px-2 text-white">
+                                <i class="bi bi-cart3"></i> Cart
+                                <span class="badge bg-warning rounded-pill"
+                                      th:if="${@cartServiceImpl.getCount() > 0}">
+                                    [[${@cartServiceImpl.getCount()}]]
+                                </span>
+                            </a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="#" class="nav-link px-2 text-white ms-2">
+                                <i class="bi bi-person-circle"></i>
+                                <span sec:authentication="name">Username</span>
+                            </a>
+                        </li>
                         <!--<li><a href="#" class="nav-link px-2 text-white">About</a></li>-->
                     </ul>
 
