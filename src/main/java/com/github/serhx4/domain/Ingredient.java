@@ -1,26 +1,40 @@
 package com.github.serhx4.domain;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.util.Objects;
 
-@Data
-@Entity
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
+@NoArgsConstructor
+@Entity
 public class Ingredient {
 
     @Id
-    private final String id;
-    private final String name;
-    private final BigDecimal price;
-    private final String imageUri;
-    private final Type type;
+    private String id;
+    private String name;
+    private BigDecimal price;
+    private String imageUri;
+    private Type type;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Ingredient that = (Ingredient) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 
     public enum Type {
         BREAD, PROTEIN, VEGGIES, CHEESE, BACON, SAUCE, TOPPING
