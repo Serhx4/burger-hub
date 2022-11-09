@@ -34,6 +34,16 @@ public class Burger {
     @ManyToOne
     private User user;
 
+    @ManyToMany
+    @ToString.Exclude
+    private List<Order> orders;
+
+    @NotNull
+    @ManyToMany
+    @Size(min = 1, message = "You must choose at least one ingredient")
+    @ToString.Exclude
+    private List<Ingredient> ingredients;
+
     @PrePersist
     @PreUpdate
     private void price() {
@@ -42,12 +52,6 @@ public class Burger {
                 .reduce(BigDecimal::add)
                 .orElse(BigDecimal.ZERO);
     }
-
-    @NotNull
-    @ManyToMany
-    @Size(min = 1, message = "You must choose at least one ingredient")
-    @ToString.Exclude
-    private List<Ingredient> ingredients;
 
     public String getDescription() {
         return ingredients

@@ -14,6 +14,7 @@ import java.util.Objects;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 @Table(name = "user_table")
 public class User {
 
@@ -31,7 +32,12 @@ public class User {
     @NotBlank(message = "Password is required")
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private ShippingInfo shippingInfo;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<Burger> burgerList;
 
     @Override

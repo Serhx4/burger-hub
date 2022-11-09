@@ -9,6 +9,7 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -25,10 +26,12 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn
     private ShippingInfo shippingInfo;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn
     private PromoCode promoCode;
 
     @CreditCardNumber(message = "Not a valid credit card number")
@@ -48,6 +51,10 @@ public class Order {
     @ElementCollection
     @Column(name = "quantity")
     private Map<Burger, Integer> burgers;
+
+    @ManyToMany
+    @ToString.Exclude
+    private List<Burger> burgers1;
 
     @PrePersist
     private void prePersist() {

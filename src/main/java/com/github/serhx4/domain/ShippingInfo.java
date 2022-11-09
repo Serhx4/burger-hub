@@ -23,6 +23,9 @@ public class ShippingInfo {
     @OneToOne
     private User user;
 
+    @OneToOne
+    private Order order;
+
     @NotBlank(message = "First name is required")
     private String firstName;
 

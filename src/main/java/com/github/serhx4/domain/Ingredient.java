@@ -5,7 +5,10 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -22,6 +25,10 @@ public class Ingredient {
     private BigDecimal price;
     private String imageUri;
     private Type type;
+
+    @ManyToMany
+    @ToString.Exclude
+    private List<Burger> burgers;
 
     @Override
     public boolean equals(Object o) {
