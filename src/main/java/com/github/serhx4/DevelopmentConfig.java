@@ -1,7 +1,11 @@
 package com.github.serhx4;
 
-import com.github.serhx4.data.*;
+import com.github.serhx4.data.BurgerRepository;
+import com.github.serhx4.data.IngredientRepository;
+import com.github.serhx4.data.PromoCodeRepository;
+import com.github.serhx4.data.UserRepository;
 import com.github.serhx4.domain.*;
+import com.github.serhx4.service.ShippingInfoService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,14 +17,14 @@ import java.util.ArrayList;
 
 import static com.github.serhx4.domain.Ingredient.Type.*;
 
-@Profile("prod")
+@Profile("!prod")
 @Configuration
 public class DevelopmentConfig {
 
     @Bean
     public CommandLineRunner preLoader(final IngredientRepository ingredientRepo,
                                        final BurgerRepository burgerRepo,
-                                       UserRepository repo, ShippingInfoRepository shippingRepo, PromoCodeRepository promoCodeRepo,
+                                       UserRepository repo, ShippingInfoService shippingRepo, PromoCodeRepository promoCodeRepo,
                                        PasswordEncoder encoder) {
         return strings -> {
 

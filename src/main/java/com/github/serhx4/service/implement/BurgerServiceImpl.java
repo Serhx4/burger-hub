@@ -4,20 +4,16 @@ import com.github.serhx4.data.BurgerRepository;
 import com.github.serhx4.domain.Burger;
 import com.github.serhx4.domain.User;
 import com.github.serhx4.service.BurgerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class BurgerServiceImpl implements BurgerService {
 
-    private BurgerRepository burgerRepository;
-
-    @Autowired
-    public BurgerServiceImpl(BurgerRepository burgerRepository) {
-        this.burgerRepository = burgerRepository;
-    }
+    private final BurgerRepository burgerRepository;
 
     @Override
     public Optional<Burger> findById(Long id) {
@@ -35,8 +31,8 @@ public class BurgerServiceImpl implements BurgerService {
     }
 
     @Override
-    public void deleteById(Long burgerId) {
-        burgerRepository.findById(burgerId).ifPresent(this::forget);
+    public void deleteById(Long id) {
+        burgerRepository.findById(id).ifPresent(this::forget);
     }
 
     @Override

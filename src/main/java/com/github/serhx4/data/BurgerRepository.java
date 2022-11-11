@@ -2,12 +2,11 @@ package com.github.serhx4.data;
 
 import com.github.serhx4.domain.Burger;
 import com.github.serhx4.domain.User;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BurgerRepository extends CrudRepository<Burger, Long> {
+import java.util.List;
 
-    Iterable<Burger> findAllByUser(User user);
-
-    Iterable<Burger> findAllByUserUsername(String username);
-
+public interface BurgerRepository extends JpaRepository<Burger, Long> {
+    List<Burger> findAllByUser(User user);
+    List<Burger> findAllByUserUsername(String username);
 }

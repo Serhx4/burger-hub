@@ -1,6 +1,5 @@
 package com.github.serhx4.web;
 
-import com.github.serhx4.data.BurgerRepository;
 import com.github.serhx4.domain.Burger;
 import com.github.serhx4.exception.NoItemFoundException;
 import com.github.serhx4.service.BurgerService;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class HomeController {
 
-    private BurgerService burgerService;
+    private final BurgerService burgerService;
 
     @Autowired
     public HomeController(BurgerService burgerService) {

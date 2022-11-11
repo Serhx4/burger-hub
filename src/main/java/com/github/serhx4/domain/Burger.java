@@ -23,7 +23,7 @@ public class Burger {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long burgerId;
+    private Long id;
 
     @NotBlank(message = "Please provide a name for your burger")
     private String name;
@@ -36,7 +36,6 @@ public class Burger {
     private User user;
 
     @OneToOne(mappedBy = "burger")
-    @ToString.Exclude
     private OrderItem orderItem;
 
     @ManyToMany
@@ -66,7 +65,7 @@ public class Burger {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Burger burger = (Burger) o;
-        return burgerId != null && Objects.equals(burgerId, burger.burgerId);
+        return id != null && Objects.equals(id, burger.id);
     }
 
     @Override

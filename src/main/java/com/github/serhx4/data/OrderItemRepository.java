@@ -1,10 +1,7 @@
 package com.github.serhx4.data;
 
-import com.github.serhx4.domain.Order;
 import com.github.serhx4.domain.OrderItem;
-import com.github.serhx4.domain.User;
-import com.github.serhx4.domain.compositekeys.OrderItemId;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OrderItemRepository extends CrudRepository<OrderItem, OrderItemId> {
+public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
 }

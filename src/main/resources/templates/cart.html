@@ -83,11 +83,11 @@
                             <div class="vstack mx-auto">
                                 <div class="btn-group" role="group">
                                     <form method="post" th:action="@{/cart/increment}">
-                                        <input type="hidden" name="burgerId" th:value="${burger.getKey.burgerId}"/>
+                                        <input type="hidden" name="id" th:value="${burger.getKey.id}"/>
                                         <button type="submit" class="btn btn-warning">+1</button>
                                     </form>
                                     <form method="post" th:action="@{/cart/decrement}">
-                                        <input type="hidden" name="burgerId" th:value="${burger.getKey.burgerId}"/>
+                                        <input type="hidden" name="id" th:value="${burger.getKey.id}"/>
                                         <button type="submit" class="btn btn-danger">-1</button>
                                     </form>
                                 </div>

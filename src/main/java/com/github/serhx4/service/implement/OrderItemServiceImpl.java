@@ -2,12 +2,10 @@ package com.github.serhx4.service.implement;
 
 import com.github.serhx4.data.OrderItemRepository;
 import com.github.serhx4.domain.OrderItem;
-import com.github.serhx4.domain.compositekeys.OrderItemId;
 import com.github.serhx4.service.OrderItemService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -17,7 +15,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     private final OrderItemRepository orderItemRepository;
 
     @Override
-    public Optional<OrderItem> findById(OrderItemId id) {
+    public Optional<OrderItem> findById(Long id) {
         return orderItemRepository.findById(id);
     }
 
@@ -32,7 +30,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
-    public void deleteById(OrderItemId id) {
+    public void deleteById(Long id) {
         orderItemRepository.deleteById(id);
     }
 }

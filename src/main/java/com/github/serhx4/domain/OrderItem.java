@@ -1,6 +1,5 @@
 package com.github.serhx4.domain;
 
-import com.github.serhx4.domain.compositekeys.OrderItemId;
 import lombok.*;
 import org.hibernate.Hibernate;
 

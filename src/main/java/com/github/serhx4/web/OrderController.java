@@ -1,10 +1,10 @@
 package com.github.serhx4.web;
 
 import com.github.serhx4.data.OrderRepository;
-import com.github.serhx4.data.ShippingInfoRepository;
 import com.github.serhx4.data.UserRepository;
 import com.github.serhx4.domain.*;
 import com.github.serhx4.service.CartService;
+import com.github.serhx4.service.ShippingInfoService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 public class OrderController {
 
     private final CartService cartService;
-    private final ShippingInfoRepository shippingInfoRepository;
+    private final ShippingInfoService shippingInfoService;
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
 
@@ -39,7 +39,9 @@ public class OrderController {
     @ModelAttribute(name = "shippingInfo")
     public ShippingInfo shippingInfo(
             @AuthenticationPrincipal org.springframework.security.core.userdetails.User user) {
-        return shippingInfoRepository.findByUserUsername(user.getUsername()).orElse(new ShippingInfo());
+        return shippingInfoService
+                .findByUsername(user.getUsername())
+                .orElse(new ShippingInfo());
     }
 
     @ModelAttribute(name = "burgers")
@@ -83,9 +85,10 @@ public class OrderController {
 
         Optional<User> foundUser = userRepository.findByUsername(user.getUsername());
         if (foundUser.isPresent()) {
-            order.setUser(foundUser.get());
-            if (shippingInfo.getUser() == null) {
-                shippingInfo.setUser(foundUser.get());
+            User optUser = foundUser.get();
+            order.setUser(optUser);
+            if (optUser.getShippingInfo() == null) {
+                shippingInfo.setUser(optUser);
             }
         }
 
@@ -111,8 +114,8 @@ public class OrderController {
     }
 
     @GetMapping("/my_orders")
-    public String showOrders(@AuthenticationPrincipal org.springframework.security.core.userdetails.User user,
-                             Model model) {
+    public String showOrders(Model model,
+                             @AuthenticationPrincipal org.springframework.security.core.userdetails.User user) {
         model.addAttribute("orders", orderRepository.findByUserUsername(user.getUsername()));
         return "my_orders";
     }

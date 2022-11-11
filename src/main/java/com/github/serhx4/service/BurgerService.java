@@ -17,5 +17,5 @@ public interface BurgerService {
 
     void forget(Burger burger);
 
-    void deleteById(Long burgerId);
+    void deleteById(Long id);
 }
