@@ -17,7 +17,7 @@ import java.util.Map;
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CartServiceImpl implements CartService {
 
-    private Map<Burger, Integer> burgerCart = new HashMap<>();
+    private final Map<Burger, Integer> burgerCart = new HashMap<>();
 
     private PromoCode promoCode;
 

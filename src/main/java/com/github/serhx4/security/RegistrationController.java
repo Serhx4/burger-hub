@@ -17,8 +17,8 @@ import javax.validation.Valid;
 @RequestMapping("/register")
 public class RegistrationController {
 
-    private UserService userService;
-    private PasswordEncoder passwordEncoder;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     public RegistrationController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;

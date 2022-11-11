@@ -10,7 +10,7 @@ import java.util.Optional;
 @Service
 public class PromoServiceImpl implements PromoService {
 
-    private PromoCodeRepository promoCodeRepository;
+    private final PromoCodeRepository promoCodeRepository;
 
     public PromoServiceImpl(PromoCodeRepository promoCodeRepository) {
         this.promoCodeRepository = promoCodeRepository;
