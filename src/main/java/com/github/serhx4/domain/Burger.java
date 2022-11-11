@@ -5,9 +5,9 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "burgers")
 public class Burger {
 
     @Id
@@ -34,15 +35,15 @@ public class Burger {
     @ManyToOne
     private User user;
 
-    @ManyToMany
+    @OneToOne(mappedBy = "burger")
     @ToString.Exclude
-    private List<Order> orders;
+    private OrderItem orderItem;
 
-    @NotNull
     @ManyToMany
     @Size(min = 1, message = "You must choose at least one ingredient")
+    @JoinTable
     @ToString.Exclude
-    private List<Ingredient> ingredients;
+    private List<Ingredient> ingredients = new ArrayList<>();
 
     @PrePersist
     @PreUpdate

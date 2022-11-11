@@ -3,11 +3,9 @@ package com.github.serhx4.domain;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.validation.constraints.Size;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,6 +15,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "ingredients")
 public class Ingredient {
 
     @Id
@@ -24,11 +23,13 @@ public class Ingredient {
     private String name;
     private BigDecimal price;
     private String imageUri;
+
+    @Enumerated(EnumType.STRING)
     private Type type;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "ingredients")
     @ToString.Exclude
-    private List<Burger> burgers;
+    private List<Burger> burgers = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

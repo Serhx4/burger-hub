@@ -14,16 +14,19 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "shipping_info")
 public class ShippingInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne(mappedBy = "shippingInfo")
+    @ToString.Exclude
     private User user;
 
-    @OneToOne
+    @OneToOne(mappedBy = "shippingInfo")
+    @ToString.Exclude
     private Order order;
 
     @NotBlank(message = "First name is required")

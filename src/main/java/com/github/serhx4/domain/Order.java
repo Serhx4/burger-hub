@@ -9,8 +9,8 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @Getter
@@ -19,18 +19,21 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "order_table")
+@Table(name = "orders")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    private User user;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private ShippingInfo shippingInfo;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn
     private PromoCode promoCode;
 
@@ -48,13 +51,9 @@ public class Order {
 
     private BigDecimal total;
 
-    @ElementCollection
-    @Column(name = "quantity")
-    private Map<Burger, Integer> burgers;
-
-    @ManyToMany
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @ToString.Exclude
-    private List<Burger> burgers1;
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     @PrePersist
     private void prePersist() {

@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface ShippingInfoRepository extends CrudRepository<ShippingInfo, Long> {
     Optional<ShippingInfo> findByUser(User user);
+    Optional<ShippingInfo> findByUserUsername(String username);
 }

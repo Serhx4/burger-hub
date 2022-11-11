@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,7 +16,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user_table")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -36,9 +37,13 @@ public class User {
     @JoinColumn
     private ShippingInfo shippingInfo;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @ToString.Exclude
-    private List<Burger> burgerList;
+    private List<Burger> burgerList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<Order> orders = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

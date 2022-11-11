@@ -1,10 +1,10 @@
 package com.github.serhx4.domain;
 
+import com.github.serhx4.domain.compositekeys.OrderItemId;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 @Getter
@@ -13,31 +13,34 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "promocodes")
-public class PromoCode {
+@Table(name = "order_items")
+public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String code;
-
-    private BigDecimal discount;
-
-    @OneToOne(mappedBy = "promoCode")
-    @ToString.Exclude
+    @ManyToOne
+    @JoinColumn
     private Order order;
+
+    @OneToOne
+    @JoinColumn
+    private Burger burger;
+
+    private Integer quantity;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        PromoCode promoCode = (PromoCode) o;
-        return id != null && Objects.equals(id, promoCode.id);
+        OrderItem orderItem = (OrderItem) o;
+        return id != null && Objects.equals(id, orderItem.id);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(id);
     }
+
 }
