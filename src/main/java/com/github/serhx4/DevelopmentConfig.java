@@ -41,7 +41,7 @@ public class DevelopmentConfig {
             //chefShippingInfo = shippingRepo.save(chefShippingInfo);
 
             User burgerChef =
-                    new User(null, "chef", "chef@burgerhub.com",
+                    new User("chef", "chef@burgerhub.com",
                             encoder.encode("p"), null, null, null);
             chefShippingInfo.setUser(burgerChef);
             burgerChef.setShippingInfo(chefShippingInfo);

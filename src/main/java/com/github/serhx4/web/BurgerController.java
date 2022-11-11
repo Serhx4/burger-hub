@@ -57,7 +57,7 @@ public class BurgerController {
 
         if(errors.hasErrors()) return "burger_form";
 
-        burgerService.save(burger, userRepository.findByUsername(user.getUsername()).orElse(null));
+        burgerService.save(burger, userRepository.findById(user.getUsername()).orElse(null));
         return "redirect:/burger/my_burgers";
     }
 

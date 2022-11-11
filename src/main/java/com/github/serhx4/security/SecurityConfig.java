@@ -27,7 +27,7 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepo) {
         return username -> {
-            User user = userRepo.findByUsername(username)
+            User user = userRepo.findById(username)
                     .orElseThrow(() -> new UsernameNotFoundException("User '" + username + "' not found"));
 
             return new org.springframework.security.core.userdetails.User(

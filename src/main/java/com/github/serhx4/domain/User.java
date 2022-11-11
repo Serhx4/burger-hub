@@ -20,10 +20,6 @@ import java.util.Objects;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(unique = true)
     @NotBlank(message = "Username is required")
     private String username;
 
@@ -51,7 +47,7 @@ public class User {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         User user = (User) o;
-        return id != null && Objects.equals(id, user.id);
+        return username != null && Objects.equals(username, user.username);
     }
 
     @Override

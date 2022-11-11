@@ -83,7 +83,7 @@ public class OrderController {
             return "checkout";
         }
 
-        Optional<User> foundUser = userRepository.findByUsername(user.getUsername());
+        Optional<User> foundUser = userRepository.findById(user.getUsername());
         if (foundUser.isPresent()) {
             User optUser = foundUser.get();
             order.setUser(optUser);
@@ -102,10 +102,6 @@ public class OrderController {
         order.setPromoCode(cartService.getPromo());
         order.setTotal(cartService.getOrderTotal());
 
-        //We build relationships to correct saving
-
-        //order.getShippingInfo().setOrder(order);
-
         orderRepository.save(order);
 
         cartService.clearCart();
@@ -116,7 +112,7 @@ public class OrderController {
     @GetMapping("/my_orders")
     public String showOrders(Model model,
                              @AuthenticationPrincipal org.springframework.security.core.userdetails.User user) {
-        model.addAttribute("orders", orderRepository.findByUserUsername(user.getUsername()));
+        model.addAttribute("orders", orderRepository.findAllByUserUsername(user.getUsername()));
         return "my_orders";
     }
 }
