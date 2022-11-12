@@ -3,22 +3,19 @@ package com.github.serhx4.service.implement;
 import com.github.serhx4.data.UserRepository;
 import com.github.serhx4.domain.User;
 import com.github.serhx4.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final UserRepository userRepository;
 
     @Override
     public boolean usernameExists(String username) {
-        return userRepository.findByUsername(username).isPresent();
+        return userRepository.findById(username).isPresent();
     }
 
     @Override

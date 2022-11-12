@@ -1,11 +1,11 @@
 package com.github.serhx4.web;
 
+import com.github.serhx4.data.UserRepository;
 import com.github.serhx4.domain.Burger;
 import com.github.serhx4.domain.Ingredient;
-import com.github.serhx4.domain.User;
 import com.github.serhx4.service.BurgerService;
 import com.github.serhx4.service.IngredientService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,16 +17,12 @@ import java.util.Arrays;
 
 @Controller
 @RequestMapping("/burger")
+@AllArgsConstructor
 public class BurgerController {
 
-    private BurgerService burgerService;
-    private IngredientService ingredientService;
-
-    @Autowired
-    public BurgerController(BurgerService burgerService, IngredientService ingredientService) {
-        this.burgerService = burgerService;
-        this.ingredientService = ingredientService;
-    }
+    private final BurgerService burgerService;
+    private final UserRepository userRepository;
+    private final IngredientService ingredientService;
 
     @ModelAttribute
     public void addIngredientsToModel(Model model) {
@@ -48,18 +44,20 @@ public class BurgerController {
     }
 
     @GetMapping("/my_burgers")
-    public String showUsersBurgers(@AuthenticationPrincipal User user, Model model) {
+    public String showUsersBurgers(Model model,
+                                   @AuthenticationPrincipal org.springframework.security.core.userdetails.User user) {
         model.addAttribute("user", user);
-        model.addAttribute("burgers", burgerService.findAllByUser(user));
+        model.addAttribute("burgers", burgerService.findAllByUsername(user.getUsername()));
         return "my_burgers";
     }
 
     @PostMapping("/add_burger")
-    public String addBurger(@Valid Burger burger, Errors errors, @AuthenticationPrincipal User user) {
+    public String addBurger(@Valid Burger burger, Errors errors,
+                            @AuthenticationPrincipal org.springframework.security.core.userdetails.User user) {
 
         if(errors.hasErrors()) return "burger_form";
 
-        burgerService.save(burger, user);
+        burgerService.save(burger, userRepository.findById(user.getUsername()).orElse(null));
         return "redirect:/burger/my_burgers";
     }
 

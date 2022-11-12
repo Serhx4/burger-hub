@@ -1,41 +1,47 @@
 package com.github.serhx4.web;
 
 import com.github.serhx4.data.OrderRepository;
-import com.github.serhx4.data.ShippingInfoRepository;
+import com.github.serhx4.data.UserRepository;
 import com.github.serhx4.domain.*;
 import com.github.serhx4.service.CartService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.github.serhx4.service.ShippingInfoService;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/order")
+@AllArgsConstructor
 public class OrderController {
 
-    private CartService cartService;
-    private ShippingInfoRepository shippingInfoRepository;
-    private OrderRepository orderRepository;
-
-    @Autowired
-    public OrderController(CartService cartService, ShippingInfoRepository shippingInfoRepository, OrderRepository orderRepository) {
-        this.cartService = cartService;
-        this.shippingInfoRepository = shippingInfoRepository;
-        this.orderRepository = orderRepository;
-    }
+    private final CartService cartService;
+    private final ShippingInfoService shippingInfoService;
+    private final OrderRepository orderRepository;
+    private final UserRepository userRepository;
 
     @ModelAttribute(name = "order")
-    public Order order() {return new Order();}
+    public Order order() {
+        return new Order();
+    }
 
     @ModelAttribute(name = "shippingInfo")
-    public ShippingInfo shippingInfo(@AuthenticationPrincipal User user) {
-        return shippingInfoRepository.findByUser(user).orElse(new ShippingInfo());
+    public ShippingInfo shippingInfo(
+            @AuthenticationPrincipal org.springframework.security.core.userdetails.User user) {
+        return shippingInfoService
+                .findByUsername(user.getUsername())
+                .orElse(new ShippingInfo());
     }
 
     @ModelAttribute(name = "burgers")
@@ -71,16 +77,29 @@ public class OrderController {
     @PostMapping
     public String processOrder(@Valid Order order, Errors orderErrors,
                                @Valid ShippingInfo shippingInfo, Errors shippingErrors,
-                               @AuthenticationPrincipal User user) {
+                               @AuthenticationPrincipal org.springframework.security.core.userdetails.User user) {
 
         if (orderErrors.hasErrors() || shippingErrors.hasErrors()) {
             return "checkout";
         }
 
-        if(shippingInfo.getUser() == null) shippingInfo.setUser(user);
+        Optional<User> foundUser = userRepository.findById(user.getUsername());
+        if (foundUser.isPresent()) {
+            User optUser = foundUser.get();
+            order.setUser(optUser);
+            if (optUser.getShippingInfo() == null) {
+                optUser.setShippingInfo(shippingInfo);
+                userRepository.save(optUser);
+            }
+        }
 
         order.setShippingInfo(shippingInfo);
-        order.setBurgers(cartService.getBurgersInCart());
+        order.setOrderItems(cartService.getBurgersInCart()
+                .entrySet()
+                .stream()
+                .map(x -> new OrderItem(null, order, x.getKey(), x.getValue()))
+                .collect(Collectors.toList())
+        );
         order.setPromoCode(cartService.getPromo());
         order.setTotal(cartService.getOrderTotal());
 
@@ -92,8 +111,9 @@ public class OrderController {
     }
 
     @GetMapping("/my_orders")
-    public String showOrders(@AuthenticationPrincipal User user, Model model) {
-        model.addAttribute("orders", orderRepository.findAllByShippingInfoUser(user));
+    public String showOrders(Model model,
+                             @AuthenticationPrincipal org.springframework.security.core.userdetails.User user) {
+        model.addAttribute("orders", orderRepository.findAllByUserUsername(user.getUsername()));
         return "my_orders";
     }
 }

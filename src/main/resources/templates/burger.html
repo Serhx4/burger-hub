@@ -42,14 +42,14 @@
 
                 <div>
                     <form th:action="@{/cart}" method="post">
-                        <input type="hidden" name="burgerId" th:value="${burger.burgerId}" />
+                        <input type="hidden" name="id" th:value="${burger.id}" />
                         <div class="btn-group">
                             <button type="submit" class="w-100 btn btn-warning btn-lg">Add to Cart</button>
                             <button type="button" class="btn btn-warning dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="visually-hidden">Toggle Dropdown</span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" th:href="@{/burger/update_burger/{id}(id = ${burger.burgerId})}">
+                                <li><a class="dropdown-item" th:href="@{/burger/update_burger/{id}(id = ${burger.id})}">
                                     Add ingredients
                                 </a></li>
                             </ul>

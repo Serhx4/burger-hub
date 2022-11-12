@@ -28,7 +28,7 @@
                     <div class="row no-gutters">
                         <div class="col-md-3">
                             <div class="d-flex flex-column align-items-center">
-                                <img th:src="'..' + @{/image/favicon.ico}">
+                                <img th:src="@{../image/favicon.ico}">
                                 <span class="d-block">Burger Hub</span>
                                 <span class="text-black-50">Promo</span>
                             </div>
@@ -61,7 +61,7 @@
     <script>
         function copyPromo(id) {
 
-            var copyText = document.getElementById(id);
+            const copyText = document.getElementById(id);
 
             copyText.select();
             copyText.setSelectionRange(0, 99999);

@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/cart")
 public class CartController {
 
-    private CartService cartService;
-    private BurgerService burgerService;
-    private PromoService promoService;
+    private final CartService cartService;
+    private final BurgerService burgerService;
+    private final PromoService promoService;
 
     @Autowired
     public CartController(CartService cartService, BurgerService burgerService, PromoService promoService) {
@@ -38,19 +38,19 @@ public class CartController {
     }
 
     @PostMapping
-    public String addToCart(@RequestParam("burgerId") Long burgerId) {
+    public String addToCart(@RequestParam("id") Long burgerId) {
         burgerService.findById(burgerId).ifPresent(cartService::addBurger);
         return "redirect:/cart";
     }
 
     @PostMapping("/increment")
-    public String incrementQuantity(@RequestParam("burgerId") Long burgerId) {
+    public String incrementQuantity(@RequestParam("id") Long burgerId) {
         burgerService.findById(burgerId).ifPresent(cartService::addBurger);
         return "redirect:/cart";
     }
 
     @PostMapping("/decrement")
-    public String decrementQuantity(@RequestParam("burgerId") Long burgerId) {
+    public String decrementQuantity(@RequestParam("id") Long burgerId) {
         burgerService.findById(burgerId).ifPresent(cartService::removeBurger);
         return "redirect:/cart";
     }

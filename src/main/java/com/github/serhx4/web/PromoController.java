@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/promo")
 public class PromoController {
 
-    private PromoService promoService;
+    private final PromoService promoService;
 
     @Autowired
     public PromoController(PromoService promoService) {

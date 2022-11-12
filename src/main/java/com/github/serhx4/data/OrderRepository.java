@@ -1,9 +1,10 @@
 package com.github.serhx4.data;
 
 import com.github.serhx4.domain.Order;
-import com.github.serhx4.domain.User;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OrderRepository extends CrudRepository<Order, Long> {
-    Iterable<Order> findAllByShippingInfoUser(User user);
+import java.util.List;
+
+public interface OrderRepository extends JpaRepository<Order, Long> {
+    List<Order> findAllByUserUsername(String username);
 }
