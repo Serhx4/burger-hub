@@ -30,8 +30,8 @@ public class User {
     @NotBlank(message = "Password is required")
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "shipping_info_id")
     private ShippingInfo shippingInfo;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

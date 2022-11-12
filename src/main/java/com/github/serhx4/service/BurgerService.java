@@ -9,8 +9,6 @@ public interface BurgerService {
 
     Optional<Burger> findById(Long id);
 
-    Iterable<Burger> findAllByUser(User user);
-
     Iterable<Burger> findAllByUsername(String username);
 
     void save(Burger burger, User user);

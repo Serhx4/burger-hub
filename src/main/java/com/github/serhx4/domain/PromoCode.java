@@ -24,10 +24,6 @@ public class PromoCode {
 
     private BigDecimal discount;
 
-    @OneToOne(mappedBy = "promoCode")
-    @ToString.Exclude
-    private Order order;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

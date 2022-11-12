@@ -35,9 +35,6 @@ public class Burger {
     @ManyToOne
     private User user;
 
-    @OneToOne(mappedBy = "burger")
-    private OrderItem orderItem;
-
     @ManyToMany
     @Size(min = 1, message = "You must choose at least one ingredient")
     @JoinTable

@@ -88,7 +88,8 @@ public class OrderController {
             User optUser = foundUser.get();
             order.setUser(optUser);
             if (optUser.getShippingInfo() == null) {
-                shippingInfo.setUser(optUser);
+                optUser.setShippingInfo(shippingInfo);
+                userRepository.save(optUser);
             }
         }
 

@@ -29,24 +29,28 @@ public class Order {
     @ManyToOne
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "shipping_info_id")
     private ShippingInfo shippingInfo;
 
     @OneToOne
-    @JoinColumn
+    @JoinColumn(name = "promo_code_id")
     private PromoCode promoCode;
 
+    @Column(name = "cc_number")
     @CreditCardNumber(message = "Not a valid credit card number")
     private String ccNumber;
 
+    @Column(name = "cc_expiration")
     @Pattern(regexp = "^(0[1-9]|1[0-2])(/)([1-9]\\d)$",
             message = "Must be formatted MM/YY")
     private String ccExpiration;
 
+    @Column(name = "cc_cvv")
     @Digits(integer = 3, fraction = 0, message = "Invalid CCV")
     private String ccCVV;
 
+    @Column(name = "placed_at")
     private LocalDate placedAt;
 
     private BigDecimal total;

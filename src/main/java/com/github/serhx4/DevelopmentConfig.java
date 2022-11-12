@@ -43,7 +43,7 @@ public class DevelopmentConfig {
             User burgerChef =
                     new User("chef", "chef@burgerhub.com",
                             encoder.encode("p"), null, null, null);
-            chefShippingInfo.setUser(burgerChef);
+            //chefShippingInfo.setUser(burgerChef);
             burgerChef.setShippingInfo(chefShippingInfo);
             repo.save(burgerChef);
 

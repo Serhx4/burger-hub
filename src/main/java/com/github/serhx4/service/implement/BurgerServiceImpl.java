@@ -21,11 +21,6 @@ public class BurgerServiceImpl implements BurgerService {
     }
 
     @Override
-    public Iterable<Burger> findAllByUser(User user) {
-        return burgerRepository.findAllByUser(user);
-    }
-
-    @Override
     public Iterable<Burger> findAllByUsername(String username) {
         return burgerRepository.findAllByUserUsername(username);
     }

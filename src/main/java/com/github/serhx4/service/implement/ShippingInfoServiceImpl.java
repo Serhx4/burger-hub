@@ -21,11 +21,6 @@ public class ShippingInfoServiceImpl implements ShippingInfoService {
     }
 
     @Override
-    public Optional<ShippingInfo> findByUser(User user) {
-        return shippingInfoRepository.findByUser(user);
-    }
-
-    @Override
     public Optional<ShippingInfo> findByUsername(String username) {
         return shippingInfoRepository.findByUserUsername(username);
     }

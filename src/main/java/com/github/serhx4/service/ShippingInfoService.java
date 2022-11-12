@@ -9,8 +9,6 @@ public interface ShippingInfoService {
 
     Optional<ShippingInfo> findById(Long id);
 
-    Optional<ShippingInfo> findByUser(User user);
-
     Optional<ShippingInfo> findByUsername(String username);
 
     ShippingInfo saveAndFlush(ShippingInfo shippingInfo);
