@@ -31,7 +31,7 @@ public class CartController {
     @GetMapping
     public String showCart(Model model) {
         model.addAttribute("burgers", cartService.getBurgersInCart());
-        model.addAttribute("total", cartService.getOrderTotal());
+        model.addAttribute("total", cartService.getTotal());
         model.addAttribute("promo", cartService.getPromo());
         model.addAttribute("discount", cartService.getDiscount());
         return "cart";

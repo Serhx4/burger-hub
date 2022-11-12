@@ -20,7 +20,7 @@ public interface CartService {
 
     BigDecimal getDiscount();
 
-    BigDecimal getOrderTotal();
+    BigDecimal getTotal();
 
     Integer getCount();
 
