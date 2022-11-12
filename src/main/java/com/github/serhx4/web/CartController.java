@@ -38,20 +38,20 @@ public class CartController {
     }
 
     @PostMapping
-    public String addToCart(@RequestParam("id") Long burgerId) {
-        burgerService.findById(burgerId).ifPresent(cartService::addBurger);
+    public String addToCart(@RequestParam("id") Long id) {
+        burgerService.findById(id).ifPresent(cartService::addBurger);
         return "redirect:/cart";
     }
 
     @PostMapping("/increment")
-    public String incrementQuantity(@RequestParam("id") Long burgerId) {
-        burgerService.findById(burgerId).ifPresent(cartService::addBurger);
+    public String incrementQuantity(@RequestParam("id") Long id) {
+        burgerService.findById(id).ifPresent(cartService::addBurger);
         return "redirect:/cart";
     }
 
     @PostMapping("/decrement")
-    public String decrementQuantity(@RequestParam("id") Long burgerId) {
-        burgerService.findById(burgerId).ifPresent(cartService::removeBurger);
+    public String decrementQuantity(@RequestParam("id") Long id) {
+        burgerService.findById(id).ifPresent(cartService::removeBurger);
         return "redirect:/cart";
     }
 

@@ -62,8 +62,8 @@ public class BurgerController {
     }
 
     @PostMapping("/delete")
-    public String deleteBurger(@RequestParam("burgerId") Long burgerId) {
-        burgerService.deleteById(burgerId);
+    public String deleteBurger(@RequestParam("id") Long id) {
+        burgerService.deleteById(id);
         return "redirect:/burger/my_burgers";
     }
 }
