@@ -2,6 +2,7 @@ package com.github.serhx4.service.implement;
 
 import com.github.serhx4.domain.Burger;
 import com.github.serhx4.domain.PromoCode;
+import com.github.serhx4.service.BurgerService;
 import com.github.serhx4.service.CartService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -11,33 +12,40 @@ import org.springframework.web.context.WebApplicationContext;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CartServiceImpl implements CartService {
 
-    private final Map<Burger, Integer> burgerCart = new HashMap<>();
-
+    private final Map<Long, Integer> burgerCart = new HashMap<>();
     private PromoCode promoCode;
+    private BigDecimal total = BigDecimal.valueOf(0);
+    private final BurgerService burgerService;
+
+    public CartServiceImpl(BurgerService burgerService) {
+        this.burgerService = burgerService;
+    }
 
     @Override
     public void addBurger(Burger burger) {
-        if(burgerCart.containsKey(burger)){
-            burgerCart.replace(burger, burgerCart.get(burger) + 1);
-        } else {
-            burgerCart.put(burger, 1);
-        }
+        burgerCart.merge(burger.getId(), 1, Integer::sum);
+        total = total.add(burger.getPrice());
     }
 
     @Override
     public void removeBurger(Burger burger) {
-        if(burgerCart.containsKey(burger)) {
-            if(burgerCart.get(burger) > 1) {
-                burgerCart.replace(burger, burgerCart.get(burger) -1);
+        Long burgerId = burger.getId();
+        if(burgerCart.containsKey(burgerId)) {
+            int burgerCount = burgerCart.get(burgerId);
+            if(burgerCount > 1) {
+                burgerCart.put(burgerId, --burgerCount);
             } else {
-                burgerCart.remove(burger);
+                burgerCart.remove(burgerId);
             }
+            total = total.subtract(burger.getPrice());
         }
     }
 
@@ -53,19 +61,20 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Map<Burger, Integer> getBurgersInCart() {
-        return burgerCart;
+        List<Burger> burgers = burgerService.findAllById(burgerCart.keySet());
+        return burgers.stream().collect(Collectors.toMap(x -> x, y -> burgerCart.get(y.getId())));
     }
 
     @Override
     public BigDecimal getDiscount() {
         if (promoCode == null) return BigDecimal.ZERO;
 
-        return calculateCartTotal().multiply(promoCode.getDiscount()).setScale(2, RoundingMode.HALF_UP);
+        return total.multiply(promoCode.getDiscount()).setScale(2, RoundingMode.HALF_UP);
     }
 
     @Override
-    public BigDecimal getOrderTotal() {
-        return calculateCartTotal().subtract(getDiscount());
+    public BigDecimal getTotal() {
+        return total.subtract(getDiscount());
     }
 
     @Override
@@ -78,13 +87,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public void clearCart() {
         burgerCart.clear();
-        this.promoCode = null;
-    }
-
-    private BigDecimal calculateCartTotal() {
-        return burgerCart.entrySet().stream()
-                .map(entry -> entry.getKey().getPrice().multiply(BigDecimal.valueOf(entry.getValue())))
-                .reduce(BigDecimal::add)
-                .orElse(BigDecimal.ZERO);
+        promoCode = null;
+        total = BigDecimal.valueOf(0);
     }
 }

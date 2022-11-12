@@ -51,7 +51,7 @@ public class OrderController {
 
     @ModelAttribute(name = "total")
     public BigDecimal total() {
-        return cartService.getOrderTotal();
+        return cartService.getTotal();
     }
 
     @ModelAttribute(name = "count")
@@ -101,7 +101,7 @@ public class OrderController {
                 .collect(Collectors.toList())
         );
         order.setPromoCode(cartService.getPromo());
-        order.setTotal(cartService.getOrderTotal());
+        order.setTotal(cartService.getTotal());
 
         orderRepository.save(order);
 

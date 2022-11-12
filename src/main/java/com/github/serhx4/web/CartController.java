@@ -31,27 +31,27 @@ public class CartController {
     @GetMapping
     public String showCart(Model model) {
         model.addAttribute("burgers", cartService.getBurgersInCart());
-        model.addAttribute("total", cartService.getOrderTotal());
+        model.addAttribute("total", cartService.getTotal());
         model.addAttribute("promo", cartService.getPromo());
         model.addAttribute("discount", cartService.getDiscount());
         return "cart";
     }
 
     @PostMapping
-    public String addToCart(@RequestParam("id") Long burgerId) {
-        burgerService.findById(burgerId).ifPresent(cartService::addBurger);
+    public String addToCart(@RequestParam("id") Long id) {
+        burgerService.findById(id).ifPresent(cartService::addBurger);
         return "redirect:/cart";
     }
 
     @PostMapping("/increment")
-    public String incrementQuantity(@RequestParam("id") Long burgerId) {
-        burgerService.findById(burgerId).ifPresent(cartService::addBurger);
+    public String incrementQuantity(@RequestParam("id") Long id) {
+        burgerService.findById(id).ifPresent(cartService::addBurger);
         return "redirect:/cart";
     }
 
     @PostMapping("/decrement")
-    public String decrementQuantity(@RequestParam("id") Long burgerId) {
-        burgerService.findById(burgerId).ifPresent(cartService::removeBurger);
+    public String decrementQuantity(@RequestParam("id") Long id) {
+        burgerService.findById(id).ifPresent(cartService::removeBurger);
         return "redirect:/cart";
     }
 

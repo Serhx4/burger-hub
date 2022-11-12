@@ -7,6 +7,7 @@ import com.github.serhx4.service.BurgerService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,7 +22,12 @@ public class BurgerServiceImpl implements BurgerService {
     }
 
     @Override
-    public Iterable<Burger> findAllByUsername(String username) {
+    public List<Burger> findAllById(Iterable<Long> ids) {
+        return burgerRepository.findAllById(ids);
+    }
+
+    @Override
+    public List<Burger> findAllByUsername(String username) {
         return burgerRepository.findAllByUserUsername(username);
     }
 
