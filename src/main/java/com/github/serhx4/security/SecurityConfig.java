@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Configuration
@@ -31,7 +32,9 @@ public class SecurityConfig {
                     .orElseThrow(() -> new UsernameNotFoundException("User '" + username + "' not found"));
 
             return new org.springframework.security.core.userdetails.User(
-                    user.getUsername(), user.getPassword(), Set.of(new SimpleGrantedAuthority("ROLE_USER")));
+                    user.getUsername(), user.getPassword(), new HashSet<SimpleGrantedAuthority>() {{
+                        add(new SimpleGrantedAuthority("ROLE_USER"));
+            }});
         };
     }
 

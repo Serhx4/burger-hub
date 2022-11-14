@@ -121,7 +121,7 @@ public class DevelopmentConfig {
             hamburger.setName("Hamburger");
             hamburger.setImageUri("image/burger/hamburger.png");
             hamburger.setUser(burgerChef);
-            hamburger.setIngredients(new ArrayList<>() {{
+            hamburger.setIngredients(new ArrayList<Ingredient>() {{
                 add(sesameSeedBun);
                 add(beefPatty);
                 add(crunchyPickles);
@@ -133,7 +133,7 @@ public class DevelopmentConfig {
             cheeseburger.setName("Cheeseburger");
             cheeseburger.setImageUri("image/burger/cheeseburger.png");
             cheeseburger.setUser(burgerChef);
-            cheeseburger.setIngredients(new ArrayList<>() {{
+            cheeseburger.setIngredients(new ArrayList<Ingredient>() {{
                 add(sesameSeedBun);
                 add(beefPatty);
                 add(cheddarCheese);
@@ -146,7 +146,7 @@ public class DevelopmentConfig {
             baconCheeseburger.setName("Bacon Cheeseburger");
             baconCheeseburger.setImageUri("image/burger/bacon cheeseburger.png");
             baconCheeseburger.setUser(burgerChef);
-            baconCheeseburger.setIngredients(new ArrayList<>(){{
+            baconCheeseburger.setIngredients(new ArrayList<Ingredient>(){{
                 add(sesameSeedBun);
                 add(beefPatty);
                 add(cheddarCheese);
@@ -160,7 +160,7 @@ public class DevelopmentConfig {
             whopper.setName("Whopper");
             whopper.setImageUri("image/burger/whopper.png");
             whopper.setUser(burgerChef);
-            whopper.setIngredients(new ArrayList<>() {{
+            whopper.setIngredients(new ArrayList<Ingredient>() {{
                 add(sesameSeedBun);
                 add(beefPatty);
                 add(juicyTomatoes);
@@ -175,7 +175,7 @@ public class DevelopmentConfig {
             salmonBurger.setName("Wild Salmon");
             salmonBurger.setImageUri("image/burger/salmon.png");
             salmonBurger.setUser(burgerChef);
-            salmonBurger.setIngredients(new ArrayList<>() {{
+            salmonBurger.setIngredients(new ArrayList<Ingredient>() {{
                 add(sesameSeedBun);
                 add(salmon);
                 add(friedEgg);
@@ -189,7 +189,7 @@ public class DevelopmentConfig {
             shrimpBurger.setName("Shrimp Burger");
             shrimpBurger.setImageUri("image/burger/shrimp.png");
             shrimpBurger.setUser(burgerChef);
-            shrimpBurger.setIngredients(new ArrayList<>() {{
+            shrimpBurger.setIngredients(new ArrayList<Ingredient>() {{
                 add(sesameSeedBun);
                 add(shrimps);
                 add(friedEgg);
