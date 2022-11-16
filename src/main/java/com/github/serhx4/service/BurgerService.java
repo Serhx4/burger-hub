@@ -2,6 +2,8 @@ package com.github.serhx4.service;
 
 import com.github.serhx4.domain.Burger;
 import com.github.serhx4.domain.User;
+import com.github.serhx4.domain.dto.BurgerCreateDto;
+import com.github.serhx4.domain.dto.BurgerReadDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +16,7 @@ public interface BurgerService {
 
     List<Burger> findAllByUsername(String username);
 
-    void save(Burger burger, User user);
-
-    void forget(Burger burger);
+    BurgerReadDto save(BurgerCreateDto burgerDto);
 
     void deleteById(Long id);
 }

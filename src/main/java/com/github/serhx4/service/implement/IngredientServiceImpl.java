@@ -5,7 +5,10 @@ import com.github.serhx4.domain.Ingredient;
 import com.github.serhx4.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import java.util.Arrays;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -25,7 +28,13 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public Iterable<Ingredient> filterByType(Ingredient.Type type) {
+    public void addIngredientsToModel(Model model) {
+        Arrays.stream(Ingredient.Type.values())
+                .forEach(type ->
+                        model.addAttribute(type.toString().toLowerCase(), filterByType(type)));
+    }
+
+    private Iterable<Ingredient> filterByType(Ingredient.Type type) {
         return StreamSupport
                 .stream(findAll().spliterator(), false)
                 .filter(x -> x.getType().equals(type))

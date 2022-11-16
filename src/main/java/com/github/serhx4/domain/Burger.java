@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @ToString
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -28,7 +29,7 @@ public class Burger {
     @NotBlank(message = "Please provide a name for your burger")
     private String name;
 
-    private String imageUri = "image/burger/bacon cheeseburger.png";
+    private String imageUri;
 
     private BigDecimal price;
 
@@ -38,6 +39,7 @@ public class Burger {
     @ManyToMany
     @Size(min = 1, message = "You must choose at least one ingredient")
     @JoinTable
+    @Builder.Default
     @ToString.Exclude
     private List<Ingredient> ingredients = new ArrayList<>();
 
