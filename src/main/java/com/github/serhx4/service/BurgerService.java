@@ -10,11 +10,11 @@ import java.util.Optional;
 
 public interface BurgerService {
 
-    Optional<Burger> findById(Long id);
+    Optional<BurgerReadDto> findById(Long id);
 
-    List<Burger> findAllById(Iterable<Long> ids);
+    List<BurgerReadDto> findAllById(Iterable<Long> ids);
 
-    List<Burger> findAllByUsername(String username);
+    List<BurgerReadDto> findAllByUsername(String username);
 
     BurgerReadDto save(BurgerCreateDto burgerDto);
 

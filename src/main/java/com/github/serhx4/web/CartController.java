@@ -3,25 +3,20 @@ package com.github.serhx4.web;
 import com.github.serhx4.service.BurgerService;
 import com.github.serhx4.service.CartService;
 import com.github.serhx4.service.PromoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/cart")
 public class CartController {
 
     private final CartService cartService;
     private final BurgerService burgerService;
     private final PromoService promoService;
-
-    @Autowired
-    public CartController(CartService cartService, BurgerService burgerService, PromoService promoService) {
-        this.cartService = cartService;
-        this.burgerService = burgerService;
-        this.promoService = promoService;
-    }
 
     @ModelAttribute("count")
     public Integer count() {

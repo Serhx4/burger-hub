@@ -4,6 +4,7 @@ import com.github.serhx4.domain.Burger;
 import com.github.serhx4.exception.NoItemFoundException;
 import com.github.serhx4.service.BurgerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,17 +24,19 @@ public class HomeController {
 
     @GetMapping
     public String welcomeHome(Model model) {
-        Iterable<Burger> burgers = burgerService.findAllByUsername("chef");
-        model.addAttribute("burgers", burgers);
+        model.addAttribute("burgers", burgerService.findAllByUsername("chef"));
         return "home";
     }
 
     @GetMapping("/menu/{id}")
     public String showBurger(@PathVariable Long id, Model model){
-        Burger burger = burgerService.findById(id)
-                .orElseThrow(() -> new NoItemFoundException("No Burger exists with id=" + id));
-        model.addAttribute("burger", burger);
-        return "burger";
+        return burgerService.findById(id)
+                .map(burger ->  {
+                    model.addAttribute("burger", burger);
+                    return "burger";
+                })
+                .orElseThrow(() -> new NoItemFoundException(HttpStatus.NOT_FOUND,
+                        "No Burger exists with id=" + id));
     }
 
 }

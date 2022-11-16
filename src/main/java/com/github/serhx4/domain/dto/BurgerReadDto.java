@@ -16,7 +16,7 @@ public class BurgerReadDto {
     @NotBlank(message = "Please provide a name for your burger")
     String name;
 
-    String imageUri = "image/burger/bacon cheeseburger.png";
+    String imageUri;
 
     String username;
 

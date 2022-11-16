@@ -16,6 +16,7 @@ public class BurgerReadMapper implements Mapper<Burger, BurgerReadDto> {
         return new BurgerReadDto(
                 object.getId(),
                 object.getName(),
+                object.getImageUri(),
                 object.getUser().getUsername(),
                 object.getIngredients(),
                 object.getPrice(),

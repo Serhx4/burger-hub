@@ -1,9 +1,10 @@
 package com.github.serhx4.service.implement;
 
-import com.github.serhx4.domain.Burger;
 import com.github.serhx4.domain.PromoCode;
+import com.github.serhx4.domain.dto.BurgerReadDto;
 import com.github.serhx4.service.BurgerService;
 import com.github.serhx4.service.CartService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
@@ -17,26 +18,25 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CartServiceImpl implements CartService {
 
-    private final Map<Long, Integer> burgerCart = new HashMap<>();
-    private PromoCode promoCode;
-    private BigDecimal total = BigDecimal.valueOf(0);
     private final BurgerService burgerService;
 
-    public CartServiceImpl(BurgerService burgerService) {
-        this.burgerService = burgerService;
-    }
+    private Map<Long, Integer> burgerCart = new HashMap<>();
+    private PromoCode promoCode;
+    private BigDecimal total = BigDecimal.valueOf(0);
+
 
     @Override
-    public void addBurger(Burger burger) {
+    public void addBurger(BurgerReadDto burger) {
         burgerCart.merge(burger.getId(), 1, Integer::sum);
         total = total.add(burger.getPrice());
     }
 
     @Override
-    public void removeBurger(Burger burger) {
+    public void removeBurger(BurgerReadDto burger) {
         Long burgerId = burger.getId();
         if(burgerCart.containsKey(burgerId)) {
             int burgerCount = burgerCart.get(burgerId);
@@ -60,8 +60,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Map<Burger, Integer> getBurgersInCart() {
-        List<Burger> burgers = burgerService.findAllById(burgerCart.keySet());
+    public Map<BurgerReadDto, Integer> getBurgersInCart() {
+        List<BurgerReadDto> burgers = burgerService.findAllById(burgerCart.keySet());
         return burgers.stream().collect(Collectors.toMap(x -> x, y -> burgerCart.get(y.getId())));
     }
 

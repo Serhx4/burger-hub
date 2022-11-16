@@ -1,8 +1,16 @@
 package com.github.serhx4.exception;
 
-public class NoItemFoundException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+import org.springframework.lang.Nullable;
+import org.springframework.web.server.ResponseStatusException;
 
-    public NoItemFoundException(String message) {
-        super(message);
+public class NoItemFoundException extends ResponseStatusException {
+
+    public NoItemFoundException(HttpStatus status) {
+        super(status);
+    }
+
+    public NoItemFoundException(HttpStatus status, @Nullable String reason) {
+        super(status, reason);
     }
 }

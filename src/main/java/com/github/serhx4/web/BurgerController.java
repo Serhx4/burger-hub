@@ -1,20 +1,18 @@
 package com.github.serhx4.web;
 
-import com.github.serhx4.data.UserRepository;
-import com.github.serhx4.domain.Burger;
 import com.github.serhx4.domain.dto.BurgerCreateDto;
+import com.github.serhx4.exception.NoItemFoundException;
 import com.github.serhx4.service.BurgerService;
 import com.github.serhx4.service.IngredientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/burger")
@@ -22,7 +20,6 @@ import java.util.Optional;
 public class BurgerController {
 
     private final BurgerService burgerService;
-    private final UserRepository userRepository;
     private final IngredientService ingredientService;
 
     @ModelAttribute
@@ -37,13 +34,16 @@ public class BurgerController {
 
     @GetMapping("/update/{id}")
     public String updateBurger(@PathVariable Long id, Model model) {
-        model.addAttribute("burger", burgerService.findById(id).orElseGet(Burger::new));
-        return "burger_form";
+        return burgerService.findById(id)
+                .map(burger -> {
+                    model.addAttribute("burger", burger);
+                    return "burger_form";
+                })
+                .orElseThrow(() -> new NoItemFoundException(HttpStatus.NOT_FOUND, "No Burger exists with id=" + id));
     }
 
     @GetMapping("/my")
-    public String showUsersBurgers(Model model,
-                                   @AuthenticationPrincipal org.springframework.security.core.userdetails.User user) {
+    public String showUsersBurgers(Model model, @AuthenticationPrincipal org.springframework.security.core.userdetails.User user) {
         model.addAttribute("username", user.getUsername());
         model.addAttribute("burgers", burgerService.findAllByUsername(user.getUsername()));
         return "my_burgers";
