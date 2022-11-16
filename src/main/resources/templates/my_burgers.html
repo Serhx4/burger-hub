@@ -9,7 +9,7 @@
     <th:block th:replace="/parts/navbar :: navbar" />
 
     <div class="py-5 text-center">
-        <h2 th:text="'Personal burger designs by @' + ${user.username}">Personal burger designs</h2>
+        <h2 th:text="'Personal burger designs by @' + ${username}">Personal burger designs</h2>
         <!--<p class="lead" th:text="'Personal designs by @' + ${user.username}">Personal burger designs</p>-->
     </div>
 
@@ -26,7 +26,7 @@
                         </div>
                     </a>
                     <div class="card-body">
-                        <p class="card-text" th:text="'Designed by @' + ${user.username}"></p>
+                        <p class="card-text" th:text="'Designed by @' + ${username}"></p>
                     </div>
                     <form th:action="@{/cart}" class="btn-group" method="post">
                         <input type="hidden" name="id" th:value="${burger.id}" />
@@ -36,7 +36,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" th:href="@{/burger/update_burger/{id} (id = ${burger.id})}">
+                                <a class="dropdown-item" th:href="@{/burger/update/{id} (id = ${burger.id})}">
                                     Improve design
                                 </a>
                             </li>
