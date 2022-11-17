@@ -1,6 +1,8 @@
 package com.github.serhx4.security;
 
 import com.github.serhx4.domain.User;
+import com.github.serhx4.validation.UniqueEmail;
+import com.github.serhx4.validation.UniqueUsername;
 import lombok.Data;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -11,9 +13,11 @@ import javax.validation.constraints.NotBlank;
 public class RegistrationForm {
 
     @NotBlank(message = "Username is required")
+    @UniqueUsername
     private String username;
 
     @Email(message = "Email is not valid")
+    @UniqueEmail
     @NotBlank(message = "Email is required")
     private String email;
 
