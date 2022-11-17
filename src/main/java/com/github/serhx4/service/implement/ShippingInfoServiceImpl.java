@@ -5,12 +5,13 @@ import com.github.serhx4.domain.ShippingInfo;
 import com.github.serhx4.domain.User;
 import com.github.serhx4.service.ShippingInfoService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ShippingInfoServiceImpl implements ShippingInfoService {
 
     private final ShippingInfoRepository shippingInfoRepository;

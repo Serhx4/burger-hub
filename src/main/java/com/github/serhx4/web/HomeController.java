@@ -1,9 +1,8 @@
 package com.github.serhx4.web;
 
-import com.github.serhx4.domain.Burger;
 import com.github.serhx4.exception.NoItemFoundException;
 import com.github.serhx4.service.BurgerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,15 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/")
 public class HomeController {
 
     private final BurgerService burgerService;
-
-    @Autowired
-    public HomeController(BurgerService burgerService) {
-        this.burgerService = burgerService;
-    }
 
     @GetMapping
     public String welcomeHome(Model model) {

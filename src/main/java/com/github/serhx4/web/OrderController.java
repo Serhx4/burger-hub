@@ -1,11 +1,14 @@
 package com.github.serhx4.web;
 
+import com.github.serhx4.data.BurgerRepository;
 import com.github.serhx4.data.OrderRepository;
 import com.github.serhx4.data.UserRepository;
 import com.github.serhx4.domain.*;
+import com.github.serhx4.domain.dto.BurgerReadDto;
 import com.github.serhx4.service.CartService;
 import com.github.serhx4.service.ShippingInfoService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,13 +26,16 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/order")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class OrderController {
 
     private final CartService cartService;
     private final ShippingInfoService shippingInfoService;
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
+    private final BurgerRepository burgerRepository;
+
+    // todo exclude repos
 
     @ModelAttribute(name = "order")
     public Order order() {
@@ -45,7 +51,7 @@ public class OrderController {
     }
 
     @ModelAttribute(name = "burgers")
-    public Map<Burger, Integer> burgers() {
+    public Map<BurgerReadDto, Integer> burgers() {
         return cartService.getBurgersInCart();
     }
 
@@ -92,12 +98,12 @@ public class OrderController {
                 userRepository.save(optUser);
             }
         }
-
+// todo hardcoded
         order.setShippingInfo(shippingInfo);
         order.setOrderItems(cartService.getBurgersInCart()
                 .entrySet()
                 .stream()
-                .map(x -> new OrderItem(null, order, x.getKey(), x.getValue()))
+                .map(x -> new OrderItem(null, order, burgerRepository.findById(x.getKey().getId()).get(), x.getValue()))
                 .collect(Collectors.toList())
         );
         order.setPromoCode(cartService.getPromo());

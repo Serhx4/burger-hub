@@ -4,12 +4,13 @@ import com.github.serhx4.data.OrderItemRepository;
 import com.github.serhx4.domain.OrderItem;
 import com.github.serhx4.service.OrderItemService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@AllArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class OrderItemServiceImpl implements OrderItemService {
 
     private final OrderItemRepository orderItemRepository;

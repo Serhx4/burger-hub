@@ -3,24 +3,19 @@ package com.github.serhx4.service.implement;
 import com.github.serhx4.data.IngredientRepository;
 import com.github.serhx4.domain.Ingredient;
 import com.github.serhx4.service.IngredientService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.util.Arrays;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
+@RequiredArgsConstructor
 public class IngredientServiceImpl implements IngredientService {
 
     private final IngredientRepository ingredientRepository;
-
-    @Autowired
-    public IngredientServiceImpl(IngredientRepository ingredientRepository) {
-        this.ingredientRepository = ingredientRepository;
-    }
 
     @Override
     public Iterable<Ingredient> findAll() {
