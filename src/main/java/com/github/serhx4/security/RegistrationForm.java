@@ -8,11 +8,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @Data
 public class RegistrationForm {
 
     @NotBlank(message = "Username is required")
+    @Pattern(regexp = "^\\w+$", message = "Username can contain only letter or number characters")
     @UniqueUsername
     private String username;
 
