@@ -24,7 +24,7 @@ public class BurgerController {
 
     @ModelAttribute
     public void addIngredients(Model model) {
-        ingredientService.addIngredientsToModel(model);
+        ingredientService.findAllSortedByType().forEach(model::addAttribute);
     }
 
     @GetMapping("/new")
@@ -54,7 +54,6 @@ public class BurgerController {
         if(errors.hasErrors()) {
             return "burger_form";
         }
-
         return "redirect:/menu/" + burgerService.save(burger).getId();
     }
 
