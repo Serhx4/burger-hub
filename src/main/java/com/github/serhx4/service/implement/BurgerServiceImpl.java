@@ -47,8 +47,11 @@ public class BurgerServiceImpl implements BurgerService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        burgerRepository.findById(id).ifPresent(this::forget);
+    @Transactional
+    public boolean deleteById(Long id) {
+        return burgerRepository.findById(id)
+                .map(this::forget)
+                .orElse(false);
     }
 
     @Override
@@ -63,10 +66,10 @@ public class BurgerServiceImpl implements BurgerService {
         //todo Update Exception
     }
 
-    @Transactional
-    private void forget(Burger burger) {
+    private boolean forget(Burger burger) {
         // forget instead deleting. We can't delete burgers that are currently in cart or order
         burger.setUser(null);
         burgerRepository.saveAndFlush(burger);
+        return true;
     }
 }

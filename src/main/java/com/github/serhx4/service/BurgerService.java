@@ -18,5 +18,5 @@ public interface BurgerService {
 
     BurgerReadDto save(BurgerCreateDto burgerDto);
 
-    void deleteById(Long id);
+    boolean deleteById(Long id);
 }
