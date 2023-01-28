@@ -51,24 +51,4 @@ public class Burger {
                 .reduce(BigDecimal::add)
                 .orElse(BigDecimal.ZERO);
     }
-
-    public String getDescription() {
-        return ingredients
-                .stream()
-                .map(Ingredient::getName)
-                .collect(Collectors.joining(", "));
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Burger burger = (Burger) o;
-        return id != null && Objects.equals(id, burger.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }

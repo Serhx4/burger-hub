@@ -49,49 +49,49 @@ public class DevelopmentConfig {
 
             // Ingredients
             final Ingredient sesameSeedBun = new Ingredient("SBUN", "Sesame seed bun", BigDecimal.valueOf(0.19),
-                            "image/ingredients/seasame_bun.png", BREAD, null);
+                            "image/ingredients/seasame_bun.png", BREAD);
             final Ingredient toastedBread = new Ingredient("BRED", "Toasted bread", BigDecimal.valueOf(0.09),
-                    "image/ingredients/bread.png", BREAD, null);
+                    "image/ingredients/bread.png", BREAD);
             final Ingredient beefPatty = new Ingredient("BEEF", "Beef patty", BigDecimal.valueOf(2.5),
-                            "image/ingredients/beef_patty.png", PROTEIN, null);
+                            "image/ingredients/beef_patty.png", PROTEIN);
             final Ingredient lambPatty = new Ingredient("LAMB", "Lamb patty", BigDecimal.valueOf(2.5),
-                            "image/ingredients/lamb_patty.png", PROTEIN, null);
+                            "image/ingredients/lamb_patty.png", PROTEIN);
             final Ingredient salmon = new Ingredient("SALM", "Salmon fillet", BigDecimal.valueOf(3.5),
-                    "image/ingredients/salmon.png", PROTEIN, null);
+                    "image/ingredients/salmon.png", PROTEIN);
             final Ingredient shrimps = new Ingredient("SHRM", "Shrimp patty", BigDecimal.valueOf(3.5),
-                    "image/ingredients/shrimps.png", PROTEIN, null);
+                    "image/ingredients/shrimps.png", PROTEIN);
             final Ingredient crunchyPickles = new Ingredient("PCKL", "Crunchy pickles", BigDecimal.valueOf(0.1),
-                    "image/ingredients/pickles.png", VEGGIES, null);
+                    "image/ingredients/pickles.png", VEGGIES);
             final Ingredient juicyTomatoes = new Ingredient("TOMT", "Juicy tomatoes", BigDecimal.valueOf(0.2),
-                    "image/ingredients/tomatoes.png", VEGGIES, null);
+                    "image/ingredients/tomatoes.png", VEGGIES);
             final Ingredient crispLettuce = new Ingredient("LETC", "Crisp lettuce", BigDecimal.valueOf(0.2),
-                    "image/ingredients/lettuce.png", VEGGIES, null);
+                    "image/ingredients/lettuce.png", VEGGIES);
             final Ingredient redOnions = new Ingredient("ONIO","Sliced red onions", BigDecimal.valueOf(0.1),
-                    "image/ingredients/red_onion.png", VEGGIES, null);
+                    "image/ingredients/red_onion.png", VEGGIES);
             final Ingredient cucumber = new Ingredient("CUCM", "Sliced cucumber", BigDecimal.valueOf(0.1),
-                    "image/ingredients/cucumber.png", VEGGIES, null);
+                    "image/ingredients/cucumber.png", VEGGIES);
             final Ingredient mushrooms = new Ingredient("MUSH", "Grilled mushrooms", BigDecimal.valueOf(0.2),
-                    "image/ingredients/mushrooms.png", VEGGIES, null);
+                    "image/ingredients/mushrooms.png", VEGGIES);
             final Ingredient chilliPepper = new Ingredient("CHIL", "Chili pepper", BigDecimal.valueOf(0.1),
-                    "image/ingredients/chili_pepper.png", VEGGIES, null);
+                    "image/ingredients/chili_pepper.png", VEGGIES);
             final Ingredient sweetPepper = new Ingredient("SPEP", "Sweet pepper", BigDecimal.valueOf(0.1),
-                    "image/ingredients/sweet_pepper.png", VEGGIES, null);
+                    "image/ingredients/sweet_pepper.png", VEGGIES);
             final Ingredient yellowMustard = new Ingredient("MUST", "Yellow mustard", BigDecimal.valueOf(0.2),
-                    "image/ingredients/mustard.png", SAUCE, null);
+                    "image/ingredients/mustard.png", SAUCE);
             final Ingredient tomatoKetchup = new Ingredient("KTCH", "Tomato ketchup", BigDecimal.valueOf(0.2),
-                    "image/ingredients/ketchup.png", SAUCE, null);
+                    "image/ingredients/ketchup.png", SAUCE);
             final Ingredient creammyMayonnaise = new Ingredient("MAYO", "Creammy mayonnaise", BigDecimal.valueOf(0.2),
-                    "image/ingredients/mayonnaise.png", SAUCE, null);
+                    "image/ingredients/mayonnaise.png", SAUCE);
             final Ingredient bbqSauce = new Ingredient("BBQS", "BBQ sauce", BigDecimal.valueOf(0.2),
-                    "image/ingredients/bbq.png", SAUCE, null);
+                    "image/ingredients/bbq.png", SAUCE);
             final Ingredient cheddarCheese = new Ingredient("CHED", "Cheddar cheese", BigDecimal.valueOf(0.3),
-                    "image/ingredients/cheddar.png", CHEESE, null);
+                    "image/ingredients/cheddar.png", CHEESE);
             final Ingredient mozarellaCheese = new Ingredient("MOZA", "Mozarella cheese", BigDecimal.valueOf(0.3),
-                    "image/ingredients/mozarella.png", CHEESE, null);
+                    "image/ingredients/mozarella.png", CHEESE);
             final Ingredient crispyBacon = new Ingredient("BCON", "Crispy bacon", BigDecimal.valueOf(0.3),
-                    "image/ingredients/bacon.png", TOPPING, null);
+                    "image/ingredients/bacon.png", TOPPING);
             final Ingredient friedEgg = new Ingredient("FREG", "Fried egg", BigDecimal.valueOf(0.3),
-                    "image/ingredients/egg.png", TOPPING, null);
+                    "image/ingredients/egg.png", TOPPING);
 
             ingredientRepo.save(sesameSeedBun);
             ingredientRepo.save(toastedBread);

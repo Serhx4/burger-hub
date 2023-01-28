@@ -63,17 +63,4 @@ public class Order {
     private void prePersist() {
         this.placedAt = LocalDate.now();
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Order order = (Order) o;
-        return id != null && Objects.equals(id, order.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }

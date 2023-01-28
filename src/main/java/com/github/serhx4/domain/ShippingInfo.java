@@ -51,17 +51,4 @@ public class ShippingInfo {
 
     @NotBlank(message = "Zip code is required")
     private String zip;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        ShippingInfo that = (ShippingInfo) o;
-        return id != null && Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }
