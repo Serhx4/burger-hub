@@ -1,6 +1,7 @@
 package com.github.serhx4.service;
 
 import com.github.serhx4.domain.dto.IngredientDto;
+import com.github.serhx4.domain.dto.IngredientForm;
 
 import java.util.List;
 import java.util.Map;
@@ -14,9 +15,9 @@ public interface IngredientService {
 
     Optional<IngredientDto> findById(String id);
 
-    IngredientDto create(IngredientDto ingredientDto);
+    IngredientDto create(IngredientForm ingredientForm);
 
-    Optional<IngredientDto> update(String id, IngredientDto ingredientDto);
+    Optional<IngredientDto> update(String id, IngredientForm ingredientForm);
 
     boolean delete(String id);
 

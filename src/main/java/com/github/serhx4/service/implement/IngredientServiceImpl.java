@@ -2,7 +2,8 @@ package com.github.serhx4.service.implement;
 
 import com.github.serhx4.data.IngredientRepository;
 import com.github.serhx4.domain.dto.IngredientDto;
-import com.github.serhx4.domain.mapper.IngredientCreateMapper;
+import com.github.serhx4.domain.dto.IngredientForm;
+import com.github.serhx4.domain.mapper.IngredientFormMapper;
 import com.github.serhx4.domain.mapper.IngredientReadMapper;
 import com.github.serhx4.service.IngredientService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class IngredientServiceImpl implements IngredientService {
 
     private final IngredientRepository ingredientRepository;
     private final IngredientReadMapper ingredientReadMapper;
-    private final IngredientCreateMapper ingredientCreateMapper;
+    private final IngredientFormMapper ingredientFormMapper;
 
     @Override
     public List<IngredientDto> findAll() {
@@ -41,18 +42,18 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public IngredientDto create(IngredientDto ingredientDto) {
-        return Optional.of(ingredientDto)
-                .map(ingredientCreateMapper::map)
+    public IngredientDto create(IngredientForm ingredientForm) {
+        return Optional.of(ingredientForm)
+                .map(ingredientFormMapper::map)
                 .map(ingredientRepository::save)
                 .map(ingredientReadMapper::map)
                 .orElseThrow(Error::new);
     }
 
     @Override
-    public Optional<IngredientDto> update(String id, IngredientDto ingredientDto) {
+    public Optional<IngredientDto> update(String id, IngredientForm ingredientForm) {
         return ingredientRepository.findById(id)
-                .map(ingredient -> ingredientCreateMapper.map(ingredientDto, ingredient))
+                .map(ingredient -> ingredientFormMapper.map(ingredientForm, ingredient))
                 .map(ingredientRepository::saveAndFlush)
                 .map(ingredientReadMapper::map);
     }

@@ -1,6 +1,7 @@
 package com.github.serhx4.rest;
 
 import com.github.serhx4.domain.dto.IngredientDto;
+import com.github.serhx4.domain.dto.IngredientForm;
 import com.github.serhx4.service.IngredientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,14 +31,14 @@ public class IngredientRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public IngredientDto create(@Valid @RequestBody IngredientDto ingredientDto) {
-        return ingredientService.create(ingredientDto);
+    public IngredientDto create(@Valid @RequestBody IngredientForm ingredientForm) {
+        return ingredientService.create(ingredientForm);
     }
 
     @PutMapping("/{id}")
     public IngredientDto update(@PathVariable("id") String id,
-                                @Valid @RequestBody IngredientDto ingredientDto) {
-        return ingredientService.update(id, ingredientDto)
+                                @Valid @RequestBody IngredientForm ingredientForm) {
+        return ingredientService.update(id, ingredientForm)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 

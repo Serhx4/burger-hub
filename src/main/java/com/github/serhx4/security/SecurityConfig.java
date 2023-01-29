@@ -60,7 +60,7 @@ public class SecurityConfig {
 
                 .and()
                     .csrf()
-                        .ignoringAntMatchers("/h2-console/**") // not recommended, just for h2 console
+                        .ignoringAntMatchers("/h2-console/**","/api/v1/**")
 
                 .and()
                 .build()
