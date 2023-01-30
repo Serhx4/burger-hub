@@ -37,10 +37,12 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @Builder.Default
     private List<Burger> burgerList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @ToString.Exclude
+    @Builder.Default
     private List<Order> orders = new ArrayList<>();
 
 }

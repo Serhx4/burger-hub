@@ -1,11 +1,9 @@
 package com.github.serhx4.domain;
 
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Objects;
 
 @Getter
 @Setter

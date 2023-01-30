@@ -1,12 +1,10 @@
 package com.github.serhx4.domain;
 
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import java.util.Objects;
 
 @Getter
 @Setter
