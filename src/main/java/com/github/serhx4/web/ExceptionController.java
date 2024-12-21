@@ -6,8 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-@Controller
-@ControllerAdvice
+@ControllerAdvice(basePackages = "com.github.serhx4.web")
 public class ExceptionController {
 
     @ExceptionHandler(NoItemFoundException.class)
